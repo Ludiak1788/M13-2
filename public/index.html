@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8"/>
+  <title>Ankieta anonimowa / Анонимный опрос</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <style>
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    body { font-family: sans-serif; text-align: center; margin: 30px; background-color: #f5f7fa; }
+    h1 { margin-bottom: 10px; }
+    #intro, #geoStage { display: none; }
+    #intro.active, #geoStage.active { display: block; }
+    #message { font-size: 1.2em; margin-top: 30px; }
+    iframe { margin-top: 40px; width: 100%; height: 1200px; border: none; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .btn {
+      margin: 20px 10px; padding: 12px 24px; font-size: 1em;
+      border: none; border-radius: 8px; cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    #continueButton {
+      background: linear-gradient(135deg, #2e7d32, #43a047); color: white;
+      font-size: 1.1em; padding: 14px 30px; margin-top: 30px;
+      box-shadow: 0 4px 10px rgba(34, 139, 34, 0.3); animation: fadeInUp 1.2s ease-out;
+    }
+    #startButton { background-color: #4CAF50; color: white; }
+    #startButton:hover { background-color: #45a049; transform: scale(1.05); }
+    #retryButton { background-color: #2196F3; color: white; }
+    #retryButton:hover { background-color: #1976D2; transform: scale(1.05); }
+    #poster { max-width: 100%; max-height: 800px; margin-bottom: 30px; box-shadow: 0 0 8px rgba(0,0,0,0.15); }
+  </style>
+</head>
+<body>
+<div class="active" id="intro">
+  <h1>Witamy! / Добро пожаловать!</h1>
+  <p>
+    Przeczytaj instrukcję poniżej, zanim rozpoczniesz.<br/>
+    Пожалуйста, прочитайте инструкцию перед началом.
+  </p>
+  <img alt="Instrukcja / Инструкция" id="poster" src="14.07.2025.png"/>
+  <button class="btn" id="continueButton">➡️ Kontynuuj / Продолжить</button>
+</div>
+<div class="infoTabsSection" id="infoTabs" style="max-width: 1000px; margin: 40px auto; padding: 30px; background: white; border-radius: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.07); text-align: left; display: none;">
+  <h2 style="text-align:center; font-size: 1.6em; margin-bottom: 10px;">🛈 Co musisz wiedzieć? / Что нужно знать?</h2>
+  <p style="text-align:center; font-size: 0.95em; color: #666; margin-bottom: 20px;">📘 Wybierz język / Выберите язык</p>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button id="btn-plTab" style="padding: 10px 20px; margin-right: 10px; border-radius: 8px; border: none; background: #2e7d32; color: white; cursor: pointer;">🇵🇱 Polski</button>
+    <button id="btn-ruTab" style="padding: 10px 20px; border-radius: 8px; border: none; background: #1565c0; color: white; cursor: pointer;">🇷🇺 Русский</button>
+    <button id="btn-uaTab" style="padding: 10px 20px; margin-left: 10px; border-radius: 8px; border: none; background: #ffcc00; color: black; cursor: pointer;">🇺🇦 Українська</button>
+    <button id="btn-geTab" style="padding: 10px 20px; margin-left: 10px; border-radius: 8px; border: none; background: #6a1b9a; color: white; cursor: pointer;">🇬🇪 ქართული</button>
+  </div>
+  <!-- Табы -->
+  <div class="infoTab" id="plTab">
+    <h2>📍 Dlaczego używamy klucza geolokalizacyjnego?</h2>
+    <p>🧭 Aby zapewnić <strong>maksymalną uczciwość i wiarygodność wyników</strong>, dostęp do ankiety mają wyłącznie <strong>pracownicy magazynu AutoDoc M13</strong>, znajdujący się fizycznie na jego terenie.</p>
+    <p>📌 Dzięki kluczowi geolokalizacyjnemu system <strong>automatycznie potwierdza obecność</strong> użytkownika we właściwej lokalizacji, co zapobiega wypełnianiu ankiety poza magazynem.</p>
+    <p>✅ Gwarantuje to, że w ankiecie biorą udział tylko osoby przebywające na miejscu.</p>
+    <p>🔒 Dane lokalizacyjne <strong>nie są zapisywane ani udostępniane</strong> – służą wyłącznie do jednorazowej weryfikacji.</p>
+    <h2 style="margin-top:30px;">📩 Informacje dotyczące przesyłania ankiety</h2>
+    <p>🔁 Formularz można przesłać tylko <strong>jeden raz</strong>.</p>
+    <p>🔐 W celu weryfikacji system może poprosić o <strong>zalogowanie się na konto Google</strong>.</p>
+    <p>📧 Adres e-mail jest wykorzystywany <strong>wyłącznie w celu sprawdzenia, czy ankieta została wypełniona tylko raz</strong>. <strong>Nie jest on zapisywany ani udostępniany</strong>.</p>
+    <p>🕵️ Ankieta jest w pełni <strong>anonimowa</strong>, a <strong>żadne dane osobowe nie są przetwarzane</strong>.</p>
+    <button class="btn backToIntroBtn" style="margin-top: 20px; margin-right: 10px; background: #888; color: white;">⬅️ Wróć / Назад</button>
+    <button class="btn toGeoStageBtn" style="margin-top: 30px; background: #1565c0; color: white;">➡️ Rozpocznij / Начать</button>
+  </div>
+  <div class="infoTab" id="ruTab" style="display:none;">
+    <h2>📍 Почему мы используем геолокационный ключ?</h2>
+    <p>🧭 Чтобы обеспечить <strong>максимальную честность и достоверность результатов</strong>, пройти опрос могут только <strong>сотрудники склада AutoDoc M13</strong>, находящиеся на его территории.</p>
+    <p>📌 Геолокационный ключ позволяет системе <strong>автоматически подтвердить</strong> нахождение пользователя в нужной зоне и исключить прохождение опроса вне склада.</p>
+    <p>✅ Такой подход гарантирует, что участвуют только те, кто действительно находится на складе.</p>
+    <p>🔒 Местоположение <strong>не сохраняется и не передаётся</strong> — используется только для одноразовой проверки.</p>
+    <h2 style="margin-top:30px;">📩 Информация о прохождении анкеты</h2>
+    <p>🔁 Форму можно отправить только <strong>один раз</strong>.</p>
+    <p>🔐 Для проверки система может запросить <strong>вход в аккаунт Google</strong>.</p>
+    <p>📧 Адрес электронной почты используется <strong>только для проверки, что опрос проходит один человек один раз</strong>. Он <strong>не сохраняется и не передаётся</strong>.</p>
+    <p>🕵️ Опрос полностью <strong>анонимен</strong>, никакие <strong>персональные данные не обрабатываются</strong>.</p>
+    <button class="btn backToIntroBtn" style="margin-top: 20px; margin-right: 10px; background: #888; color: white;">⬅️ Wróć / Назад</button>
+    <button class="btn toGeoStageBtn" style="margin-top: 30px; background: #1565c0; color: white;">➡️ Начать / Rozpocznij</button>
+  </div>
+  <div class="infoTab" id="uaTab" style="display:none;">
+    <h2>📍 Чому ми використовуємо геолокаційний ключ?</h2>
+    <p>🧭 Щоб забезпечити максимальну чесність і достовірність результатів, доступ до анкети мають виключно співробітники складу AutoDoc M13, які фізично перебувають на його території.</p>
+    <p>📌 Завдяки геолокаційному ключу система автоматично підтверджує присутність користувача у потрібному місці, що запобігає заповненню анкети поза межами складу.</p>
+    <p>✅ Це гарантує, що в анкетуванні беруть участь лише ті, хто перебуває на місці.</p>
+    <p>🔒 Дані про місцезнаходження не зберігаються і не передаються — вони використовуються лише для одноразової перевірки.</p>
+    <h2 style="margin-top:30px;">📩 Інформація щодо надсилання анкети</h2>
+    <p>🔁 Форму можна надіслати лише один раз.</p>
+    <p>🔐 Для перевірки система може попросити увійти до облікового запису Google.</p>
+    <p>📧 Адреса електронної пошти використовується виключно для перевірки, чи заповнено анкету лише один раз. Вона не зберігається і не передається.</p>
+    <p>🕵️ Анкета є повністю анонімною, жодні персональні дані не обробляються.</p>
+    <button class="btn backToIntroBtn" style="margin-top: 20px; margin-right: 10px; background: #888; color: white;">⬅️ Wróć / Назад</button>
+    <button class="btn toGeoStageBtn" style="margin-top: 30px; background: #1565c0; color: white;">➡️ Rozpocznij / Начать</button>
+  </div>
+  <div class="infoTab" id="geTab" style="display:none;">
+    <h2>📍 რატომ ვიყენებთ გეოლოკაციის გასაღებს?</h2>
+    <p>🧭 მაქსიმალური სამართლიანობისა და სიზუსტის უზრუნველსაყოფად, ანკეტაში მონაწილეობა შეუძლიათ მხოლოდ AutoDoc M13-ის საწყობის თანამშრომლებს, რომლებიც იმყოფებიან ადგილზე.</p>
+    <p>📌 გეოლოკაციის გასაღების მეშვეობით სისტემა ავტომატურად ადასტურებს მომხმარებლის ადგილმდებარეობას, რაც ხელს უშლის ანკეტის შევსებას საწყობის ფარგლებს გარეთ.</p>
+    <p>✅ ეს უზრუნველყოფს, რომ გამოკითხვაში მონაწილეობენ მხოლოდ ადგილზე მყოფი პირები.</p>
+    <p>🔒 ადგილმდებარეობის მონაცემები არ ინახება და არ გადაეცემა – გამოიყენება მხოლოდ ერთჯერადად, ვალიდაციის მიზნით.</p>
+    <h2 style="margin-top:30px;">📩 ანკეტის გაგზავნის შესახებ ინფორმაცია</h2>
+    <p>🔁 ფორმის გაგზავნა შესაძლებელია მხოლოდ ერთხელ.</p>
+    <p>🔐 ვალიდაციისთვის სისტემა შესაძლოა მოითხოვოს Google-ანგარიშში შესვლა.</p>
+    <p>📧 ელფოსტის მისამართი გამოიყენება მხოლოდ იმ მიზნით, რომ დარწმუნდეს — ერთი ადამიანი ავსებს ანკეტას მხოლოდ ერთხელ. იგი არ ინახება და არ გადაეცემა.</p>
+    <p>🕵️ ანკეტა სრულიად ანონიმურია და პერსონალური მონაცემები არ მუშავდება.</p>
+    <button class="btn backToIntroBtn" style="margin-top: 20px; margin-right: 10px; background: #888; color: white;">⬅️ Wróć / Назад</button>
+    <button class="btn toGeoStageBtn" style="margin-top: 30px; background: #1565c0; color: white;">➡️ Rozpocznij / Начать</button>
+  </div>
+</div>
+<div id="geoStage">
+  <h1>Sprawdzenie lokalizacji / Проверка местоположения</h1>
+  <div id="message">Kliknij poniższy przycisk, aby rozpocząć. / Нажмите кнопку ниже для начала.</div>
+  <button class="btn" id="startButton">📍 Sprawdź lokalizację / Проверить местоположение</button>
+  <button class="btn" id="retryButton" style="display:none;">🔄 Odśwież / Обновить</button>
+  <button class="btn" id="backToIntroButton" style="display:none; background-color: #2e7d32; color: white; margin-left: 10px;">🔙 Wróć / Вернуться в начало</button>
+</div>
+<script src="main.js"></script>
+</body>
+</html>
+
+
+
+
