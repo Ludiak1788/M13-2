@@ -11,6 +11,15 @@ const retryButton = document.getElementById('retryButton');
 const message = document.getElementById('message');
 const backToIntroButton = document.getElementById('backToIntroButton');
 
+function error(err) {
+  console.warn(`Błąd geolokalizacji: ${err.message}`);
+  message.textContent = '⚠️ Nie udało się uzyskać współrzędnych. Zezwól na dostęp do lokalizacji i spróbuj ponownie. / Не удалось получить координаты. Разрешите доступ к геолокации и попробуйте снова.';
+  retryButton.style.display = 'inline-block';
+  backToIntroButton.style.display = 'inline-block';
+  startButton.style.display = 'none';
+}
+
+
 // --- Функции для переходов между блоками ---
 function backToIntro() {
   document.getElementById('infoTabs').style.display = 'none';
@@ -95,6 +104,7 @@ function success(position) {
   const userLat = position.coords.latitude;
   const userLon = position.coords.longitude;
   const distance = getDistanceFromLatLonInMeters(userLat, userLon, warehouseLat, warehouseLon);
+
 
   if (distance <= allowedRadius) {
     if (!localStorage.getItem("ankieta_wypelniona")) {
@@ -308,4 +318,3 @@ document.addEventListener('DOMContentLoaded', function() {
     message.textContent = 'Kliknij poniższy przycisk, aby rozpocząć. / Нажмите кнопку ниже для начала.';
   });
 });
-
