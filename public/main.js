@@ -275,3 +275,37 @@ function initSurveyForm() {
     }
   });
 }
+document.addEventListener('DOMContentLoaded', function() {
+  // Кнопка "Продолжить"
+  document.getElementById('continueButton').addEventListener('click', goToInfoTabs);
+
+  // Примеры — кнопки для табов языков (если они есть на твоей первой вкладке-инструкции)
+  document.getElementById('btn-plTab').addEventListener('click', () => showTab('plTab'));
+  document.getElementById('btn-ruTab').addEventListener('click', () => showTab('ruTab'));
+  document.getElementById('btn-uaTab').addEventListener('click', () => showTab('uaTab'));
+  document.getElementById('btn-geTab').addEventListener('click', () => showTab('geTab'));
+
+  // Кнопки "назад" и "начать" для инструкций (если они есть)
+  document.querySelectorAll('.backToIntroBtn').forEach(btn =>
+    btn.addEventListener('click', backToIntro)
+  );
+  document.querySelectorAll('.toGeoStageBtn').forEach(btn =>
+    btn.addEventListener('click', goToGeoStageFromTabs)
+  );
+
+  // Остальные обработчики (гео, retry, и т.д.)
+  startButton.addEventListener('click', runGeolocationCheck);
+  retryButton.addEventListener('click', function() {
+    backToIntroButton.style.display = 'none';
+    resetToInitialState();
+  });
+  backToIntroButton.addEventListener('click', function() {
+    geoStage.classList.remove('active');
+    intro.classList.add('active');
+    startButton.style.display = 'inline-block';
+    retryButton.style.display = 'none';
+    backToIntroButton.style.display = 'none';
+    message.textContent = 'Kliknij poniższy przycisk, aby rozpocząć. / Нажмите кнопку ниже для начала.';
+  });
+});
+
