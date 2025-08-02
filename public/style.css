@@ -1,0 +1,18 @@
+.form-box {
+  max-width: 700px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.07);
+  overflow: hidden;
+  position: relative;
+  padding-top: 60px; /* Высота белой "шапки" */
+}
+.form-box__top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 60px;
+  background: #fff;
+  z-index: 2;
+  border-radius: 16px 16px 0 0;
+}
