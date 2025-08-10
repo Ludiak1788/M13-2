@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8"/>
+  <title>Ankieta anonimowa / Анонимный опрос</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin: 30px; background-color: #f5f7fa; }
+    h1 { margin-bottom: 10px; }
+    #intro, #infoTabs, #googleFormStage { display: none; }
+    #intro.active, #infoTabs.active, #googleFormStage.active { display: block; }
+    .btn {
+      margin: 20px 10px; padding: 12px 24px; font-size: 1em;
+      border: none; border-radius: 8px; cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    #continueButton {
+      background: linear-gradient(135deg, #2e7d32, #43a047); color: white;
+      font-size: 1.1em; padding: 14px 30px; margin-top: 30px;
+      box-shadow: 0 4px 10px rgba(34, 139, 34, 0.3);
+    }
+    #poster { max-width: 100%; max-height: 800px; margin-bottom: 30px; box-shadow: 0 0 8px rgba(0,0,0,0.15); }
+    .infoTab { display: none; }
+    .infoTab.active { display: block; }
+    iframe { margin-top: 40px; width: 100%; height: 1200px; border: none; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+<div class="active" id="intro">
+  <h1>Witamy! / Добро пожаловать!</h1>
+  <p>
+    Przeczytaj instrukcję poniżej, zanim rozpoczniesz.<br/>
+    Пожалуйста, прочитайте инструкцию перед началом.
+  </p>
+  <img alt="Instrukcja / Инструкция" id="poster" src="M 66.png"/>
+  <button class="btn" id="continueButton">➡️ Kontynuuj / Продолжить</button>
+</div>
+<div id="infoTabs" class="infoTabsSection" style="max-width: 1000px; margin: 40px auto; padding: 30px; background: white; border-radius: 16px; box-shadow: 0 6px 16px rgba(0,0,0,0.07); text-align: left;">
+  <h2 style="text-align:center; font-size: 1.6em; margin-bottom: 10px;">🛈 Co musisz wiedzieć? / Что нужно знать?</h2>
+  <p style="text-align:center; font-size: 0.95em; color: #666; margin-bottom: 20px;">📘 Wybierz język / Выберите язык</p>
+  <div style="text-align: center; margin-bottom: 20px;">
+    <button id="btn-plTab" class="langBtn" style="padding: 10px 20px; margin-right: 10px; border-radius: 8px; border: none; background: #2e7d32; color: white; cursor: pointer;">🇵🇱 Polski</button>
+    <button id="btn-ruTab" class="langBtn" style="padding: 10px 20px; border-radius: 8px; border: none; background: #1565c0; color: white; cursor: pointer;">🇷🇺 Русский</button>
+    <button id="btn-uaTab" class="langBtn" style="padding: 10px 20px; margin-left: 10px; border-radius: 8px; border: none; background: #ffcc00; color: black; cursor: pointer;">🇺🇦 Українська</button>
+    <button id="btn-geTab" class="langBtn" style="padding: 10px 20px; margin-left: 10px; border-radius: 8px; border: none; background: #6a1b9a; color: white; cursor: pointer;">🇬🇪 ქართული</button>
+  </div>
+  <!-- Polski -->
+  <div class="infoTab active" id="plTab">
+    <h2 style="margin-top:30px;">📩 Informacje dotyczące przesyłania ankiety</h2>
+    <p>🔁 Formularz można przesłać tylko <strong>jeden raz</strong>.</p>
+    <p>🔐 W celu weryfikacji system może poprosić о <strong>zalogowanie się na konto Google</strong>.</p>
+    <p>📧 Adres e-mail jest wykorzystywany <strong>wyłącznie w celu sprawdzenia, czy ankieta została wypełniona tylko raz</strong>. <strong>Nie jest on zapisywany ani udostępniany</strong>.</p>
+    <p>🕵️ Ankieta jest w pełni <strong>anonimowa</strong>, a <strong>żadne dane osobowe nie są przetwarzane</strong>.</p>
+    <button class="btn toGoogleFormBtn" style="margin-top: 30px; background: #1565c0; color: white;">➡️ Rozpocznij / Начать</button>
+  </div>
+  <!-- Русский -->
+  <div class="infoTab" id="ruTab">
+    <h2 style="margin-top:30px;">📩 Информация о прохождении анкеты</h2>
+    <p>🔁 Форму можно отправить только <strong>один раз</strong>.</p>
+    <p>🔐 Для проверки система может запросить <strong>вход в аккаунт Google</strong>.</p>
+    <p>📧 Адрес электронной почты используется <strong>только для проверки, что опрос проходит один человек один раз</strong>. Он <strong>не сохраняется и не передаётся</strong>.</p>
+    <p>🕵️ Опрос полностью <strong>анонимен</strong>, никакие <strong>персональные данные не обрабатываются</strong>.</p>
+    <button class="btn toGoogleFormBtn" style="margin-top: 30px; background: #1565c0; color: white;">➡️ Начать / Rozpocznij</button>
+  </div>
+  <!-- Українська -->
+  <div class="infoTab" id="uaTab">
+    <h2 style="margin-top:30px;">📩 Інформація щодо надсилання анкети</h2>
+    <p>🔁 Форму можна надіслати лише один раз.</p>
+    <p>🔐 Для перевірки система може попросити увійти до облікового запису Google.</p>
+    <p>📧 Адреса електронної пошти використовується виключно для перевірки, чи заповнено анкету лише один раз. Вона не зберігається і не передається.</p>
+    <p>🕵️ Анкета є повністю анонімною, жодні персональні дані не обробляються.</p>
+    <button class="btn toGoogleFormBtn" style="margin-top: 30px; background: #1565c0; color: white;">➡️ Розпочати / Начать</button>
+  </div>
+  <!-- ქართული -->
+  <div class="infoTab" id="geTab">
+    <h2 style="margin-top:30px;">📩 ანკეტის გაგზავნის შესახებ ინფორმაცია</h2>
+    <p>🔁 ფორმის გაგზავნა შესაძლებელია მხოლოდ ერთხელ.</p>
+    <p>🔐 ვალიდაციისთვის სისტემა შესაძლოა მოითხოვოს Google-ანგარიშში შესვლა.</p>
+    <p>📧 ელფოსტის მისამართი გამოიყენება მხოლოდ იმ მიზნით, რომ დარწმუნდეს — ერთი ადამიანი ავსებს ანკეტას მხოლოდ ერთხელ. იგი არ ინახება და არ გადაეცემა.</p>
+    <p>🕵️ ანკეტა სრულიად ანონიმურია და პერსონალური მონაცემები არ მუშავდება.</p>
+    <button class="btn toGoogleFormBtn" style="margin-top: 30px; background: #1565c0; color: white;">➡️ დაწყება / Начать</button>
+  </div>
+</div>
+<div id="googleFormStage">
+  <iframe 
+    src="https://docs.google.com/forms/d/e/1FAIpQLScWAcx35bMtBpca_IA4Lv-O1sMm-O_bUANHeRi4JFK3k3PltA/viewform?usp=dialog" 
+    width="100%" 
+    height="1200" 
+    frameborder="0" 
+    marginheight="0" 
+    marginwidth="0" 
+    style="border:none; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-top: 40px;">
+  Загрузка…
+  </iframe>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const intro = document.getElementById('intro');
+    const infoTabs = document.getElementById('infoTabs');
+    const googleFormStage = document.getElementById('googleFormStage');
+    const continueButton = document.getElementById('continueButton');
+
+    // intro -> infoTabs
+    continueButton.onclick = function () {
+      intro.classList.remove('active');
+      infoTabs.classList.add('active');
+    };
+
+    // Переключение языковых табов
+    const tabBtns = document.querySelectorAll('.langBtn');
+    const infoTabBlocks = document.querySelectorAll('.infoTab');
+    tabBtns.forEach(function(btn) {
+      btn.onclick = function() {
+        infoTabBlocks.forEach(function(tab) { tab.classList.remove('active'); });
+        let id = btn.id.replace('btn-', '');
+        document.getElementById(id).classList.add('active');
+      }
+    });
+
+    // infoTabs -> googleFormStage
+    document.querySelectorAll('.toGoogleFormBtn').forEach(function(btn){
+      btn.onclick = function () {
+        infoTabs.classList.remove('active');
+        googleFormStage.classList.add('active');
+      };
+    });
+  });
+</script>
+</body>
+</html>
